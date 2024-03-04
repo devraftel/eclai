@@ -1,4 +1,4 @@
-# ECLAI (Eco-Conscious Lifestyle AI)
+# EclAI (Eco-Conscious Lifestyle AI)
 
 -> USP: Promoting sustainable living through both personal behavior change and conscious consumption. 
 
