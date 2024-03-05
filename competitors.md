@@ -1,13 +1,16 @@
-## Saturated Market
 The sustainability app market has indeed seen significant growth over the past few years, with a surge in applications designed to help individuals live more sustainably, reduce their carbon footprint, and make more ethical consumption choices. 
 
-This growth is driven by increasing consumer awareness of environmental issues and a desire to contribute to positive change. However, this has also led to a crowded marketplace, where differentiation becomes a challenge. Here are some examples and facts that illustrate the market saturation and the challenges it poses:
+This growth is driven by increasing consumer awareness of environmental issues and a desire to contribute to positive change. Here are some examples and facts that illustrate the market saturation and the challenges it poses:
 
 ### Examples of Sustainability Apps
 - Oroeco: Integrates with users' spending to track their carbon footprint across various categories, offering personalized tips for reducing their impact.
 Good On You: Provides detailed ethical ratings for clothing brands, helping consumers make informed choices about where to shop based on sustainability criteria.
 - Think Dirty: Allows users to scan personal care and cosmetic products to get ratings on their ingredients, focusing on health and environmental impact.
 - JouleBug: Gamifies sustainable living with challenges and badges for completing eco-friendly actions, aiming to make sustainability social and fun.
+- https://www.bluebirdclimate.com/
+- https://clarity.ai/
+- https://watershed.com/
+- https://www.failory.com/startups/sustainability
 
 ## Market Saturation Facts
 - Growth in Sustainability Apps: The number of apps focused on sustainability has grown exponentially. A search for "sustainability" on app stores returns hundreds of results, from carbon footprint calculators to sustainable shopping guides.
