@@ -1,12 +1,42 @@
 import { MaxWidthWrapper } from '@/components/max-width-wrapper';
+import { AnimatedTooltip } from '@/components/ui/animated-tooltip';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { HoverEffect } from '@/components/ui/card-hover-effect';
 import { Button } from '@nextui-org/button';
 import Image from 'next/image';
+
+const projects = [
+	{
+		title: 'Personalized Sustainability Journeys',
+		description:
+			'Tailored guidance from Generative AI to align with your individual goals and lifestyle.',
+		link: 'https://netflix.com',
+	},
+	{
+		title: 'Real-Time Shopping Advisor:',
+		description:
+			'Intelligent analysis of your purchases, suggesting sustainable alternatives as you shop.',
+		link: 'https://google.com',
+	},
+	{
+		title: `Impact Tracking:`,
+		description:
+			'Comprehensive tools to visualize and monitor your progress towards a smaller ecological footprint.',
+		link: 'https://meta.com',
+	},
+	{
+		// title: 'Change Your Habits, Change Your Footprint',
+		title: 'Sustainable Marketplace:',
+		description:
+			'A curated showcase of eco-friendly products that are as good for the planet as they are for you.',
+		link: 'https://stripe.com',
+	},
+];
 
 export default function Home() {
 	return (
 		<>
-			<section className='h-[40rem] py-10 md:py-20 lg:py-28'>
+			<section className='py-10 md:py-20 lg:py-28'>
 				<MaxWidthWrapper className='h-full container mx-auto'>
 					<div className='flex flex-col justify-center h-full'>
 						<h1 className='text-balance'>
@@ -18,30 +48,32 @@ export default function Home() {
 							consumption and sustainable choices.
 						</h4>
 						<p className='text-balance mt-6 md:mt-8 lg:mt-12'>
-							We get it. You want to live more sustainably, but it&apos;s a
-							jungle of information and overwhelming choices. eclAI cuts through
-							the noise. Powered by cutting-edge Generative AI, we&apos;re more
-							than just another sustainability app. We&apos;ll guide your
-							personal sustainability journey AND help you shop with the planet
-							in mind. Achieve your eco-conscious goals without sacrificing your
-							quality of life.
+							Welcome to eclAI, where we&apos;re revolutionizing the journey
+							towards a sustainable lifestyle. Our unique platform is designed
+							to empower you with the tools and knowledge needed to make a real
+							impact on the environment through personalized sustainability
+							practices and conscious consumption choices. With EclAI,
+							you&apos;re not just making changes; you&apos;re embarking on a
+							transformative journey for a greener tomorrow.
 						</p>
 						<div className='mt-8 md:mt-12 flex items-center justify-center space-x-4 sm:space-x-6 md:space-x-8 max-w-md'>
-							<Button className='bg-primary text-primary-foreground flex-1'>
-								Sign Up Now!
-							</Button>
 							<Button
 								className='bg-primary text-primary-foreground flex-1'
-								variant='flat'
+								variant='shadow'
 							>
 								Try Demo
+							</Button>
+							<Button
+								className='flex-1'
+								variant='bordered'
+							>
+								Sign Up Now!
 							</Button>
 						</div>
 					</div>
 				</MaxWidthWrapper>
 			</section>
-			<section>
-				{' '}
+			<section className='py-4 md:py-8 lg:py-16 max-w-4xl w-full mx-auto'>
 				<AspectRatio
 					ratio={16 / 9}
 					className='bg-muted'
@@ -55,85 +87,155 @@ export default function Home() {
 				</AspectRatio>
 			</section>
 
-			<section>
+			<section className='py-6 md:py-12 lg:py-20'>
 				<MaxWidthWrapper>
-					<div className='space-y-4'>
-						<h2>USP</h2>
-						<p>
-							Change Your Habits, Change Your Footprint: Get a custom
-							sustainability action plan tailored to you! Our AI analyzes your
-							life and offers achievable steps to reduce your impact.
-						</p>
-						<p>
-							Shop Smarter, Greener: Real-time shopping advice! We find
-							sustainable and ethical alternatives to everyday products, so you
-							can vote with your wallet.
-						</p>
-						<p>
-							See Your Impact: Track your progress with clear, motivating
-							visuals that show your carbon reduction, waste diversion, and
-							more.
-						</p>
-						<p>
-							We&apos;re a Community: Connect with others on the same path.
-							Share tips, find inspiration, and stay motivated with the eclAI
-							tribe.
-						</p>
+					<div className='space-y-6 md:space-y-8 lg:space-y-12'>
+						<div>
+							<h2>Unique Selling Point</h2>
+							<div className='space-y-2 md:space-y-4 lg:space-y-6'>
+								<p className='text-balance mt-6 md:mt-8 lg:mt-12'>
+									Our Unique Selling Point (USP) lies in combining personal
+									behavior modification with real-time shopping advice, all
+									powered by Generative AI. Unlike other platforms, EclAI offers
+									a dual approach to sustainability, providing personalized
+									content and actionable insights that cater specifically to
+									your lifestyle and preferences.
+								</p>
+							</div>
+						</div>
+						<div>
+							<h3>Tackling the Sustainability Challenge</h3>
+							<div className='space-y-2 md:space-y-4 lg:space-y-6'>
+								<p className='text-balance mt-6 md:mt-8 lg:mt-12'>
+									We understand the hurdles in translating environmental
+									awareness into daily actions. EclAI addresses this by
+									providing accessible, personalized guidance that helps
+									simplify the complexities of eco-friendly living and ethical
+									shopping.
+								</p>
+							</div>
+						</div>
+						<div>
+							<h3>Empowering You With Actionable Insights</h3>
+							<div className='space-y-2 md:space-y-4 lg:space-y-6'>
+								<p className='text-balance mt-6 md:mt-8 lg:mt-12'>
+									EclAI is not just a platform; it&apos;s a movement towards
+									impactful change. By offering:
+								</p>
+								<div className='max-w-6xl mx-auto px-8'>
+									<HoverEffect items={projects} />
+								</div>
+							</div>
+						</div>
 					</div>
 				</MaxWidthWrapper>
 			</section>
 
-			<section>
+			<section className='py-6 md:py-12 lg:py-20'>
 				<MaxWidthWrapper>
-					<div>
-						<h2>Feature Section -</h2>
-						<p>
-							Highlight the importance of personal behavior change for
-							sustainability.
-						</p>
-						<p>
-							Present the concept of conscious consumption and how the company
-							supports this practice.
-						</p>
+					<div className='space-y-6 md:space-y-8 lg:space-y-12'>
+						<h2>Our Approach to Sustainability</h2>
+						<div className='space-y-2 md:space-y-4 lg:space-y-6'>
+							<p>
+								<b>Sign up or Guest Access</b>: Start your journey with full
+								membership benefits or explore anonymously as a guest.
+							</p>
+							<p>
+								<b>Matrix of Personalized Journeys</b>: An interactive
+								onboarding process to craft your unique path towards
+								sustainability.
+							</p>
+							<p>
+								<b>Advisor at Your Fingertips</b>: Our real-time advisor
+								integrates seamlessly with your shopping habits, elevating your
+								purchasing decisions.
+							</p>
+							<p>
+								<b>Visualization of Impact</b>: Engaging graphics to track and
+								celebrate your sustainable strides.
+							</p>
+							<p>
+								<b>Sustainable Selections</b>: A handpicked section of
+								sustainable and ethical products, complete with transparent
+								brand practices.
+							</p>
+						</div>
 					</div>
 				</MaxWidthWrapper>
 			</section>
 
-			<section>
+			<section className='py-6 md:py-12 lg:py-20'>
 				<MaxWidthWrapper>
-					<h2>How it works</h2>
-					<p>
-						Explain how customers can engage with the products and initiatives.
-					</p>
+					<div className='space-y-6 md:space-y-8 lg:space-y-12'>
+						<h2>Our Team</h2>
+
+						<div className='space-y-2 md:space-y-4 lg:space-y-6'>
+							<p className='text-balance mt-6 md:mt-8 lg:mt-12'>
+								Our team is composed of passionate individuals dedicated to the
+								cause of sustainability. We believe in the power of technology
+								to drive significant change, and we&apos;re committed to making
+								a positive impact on the environment through our work at eclAI.
+							</p>
+
+							<div className='flex flex-row items-center justify-center mb-10 w-full'>
+								<AnimatedTooltip items={people} />
+							</div>
+						</div>
+					</div>
 				</MaxWidthWrapper>
 			</section>
 
-			<section>
+			{/* <section className='py-6 md:py-12 lg:py-20'>
 				<MaxWidthWrapper>
-					<h2>Our Team</h2>
-					<p>
-						Explain how customers can engage with the products and initiatives.
-					</p>
+					<div className='space-y-6 md:space-y-8 lg:space-y-12'>
+						<h2>Testimonial</h2>
+						<div className='space-y-2 md:space-y-4 lg:space-y-6'>
+							<p>
+								Explain how customers can engage with the products and
+								initiatives.
+							</p>
+						</div>
+					</div>
 				</MaxWidthWrapper>
-			</section>
+			</section> */}
 
-			<section>
+			<section className='py-6 md:py-12 lg:py-20'>
 				<MaxWidthWrapper>
-					<h2>Testimonial</h2>
-					<p>
-						Explain how customers can engage with the products and initiatives.
-					</p>
-				</MaxWidthWrapper>
-			</section>
-
-			<section>
-				<MaxWidthWrapper>
-					<h4>Start Your Sustainable Journey Today! </h4>
-					<Button className='bg-primary text-primary-foreground'>
-						Sign Up Now!
-					</Button>
+					<div className='space-y-4 md:space-y-6 flex flex-col items-center justify-center'>
+						<h4>Start Your Sustainable Journey Today! </h4>
+						<div className='space-y-2 md:space-y-4 lg:space-y-6 max-w-5xl mx-auto flex flex-col items-center'>
+							<p className='text-center'>
+								EclAI is your gateway to living in harmony with the planet.
+								Embrace the power of Generative AI and transform your
+								environmental impact, one conscious choice at a time. Together,
+								we can make sustainability not just a goal, but a way of life.
+							</p>
+							<p>
+								Ready to start? Join EclAI today and become part of the
+								solution.
+							</p>
+							<Button className='bg-primary text-primary-foreground'>
+								Sign Up Now!
+							</Button>
+						</div>
+					</div>
 				</MaxWidthWrapper>
 			</section>
 		</>
 	);
 }
+
+const people = [
+	{
+		id: 1,
+		name: 'Muhammad Ahmad Shoukat',
+		designation: 'Gen AI Engineer',
+		image: 'https://github.com/ahmad2b.png',
+	},
+	{
+		id: 2,
+		name: 'Muhammad Junaid Shaukat',
+		designation: 'Gen AI Engineer',
+		image: 'https://github.com/mjunaidca.png',
+	},
+];

@@ -13,11 +13,13 @@ export const Logo = ({ width = 50, height = 50 }: LogoProps) => {
 			className='z-40 font-semibold flex items-center space-x-2 cursor-pointer'
 		>
 			<Image
-				src={'/logo.svg'}
+				src={'/logo-dark.svg'}
 				alt='Logo'
 				width={width}
 				height={height}
+				className='dark:hidden light:block'
 			/>
+
 			<p className='font-bold text-inherit font-lato'>ECL</p>
 		</Link>
 	);

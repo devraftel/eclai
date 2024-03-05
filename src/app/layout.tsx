@@ -31,7 +31,7 @@ export default function RootLayout({
 	return (
 		<html
 			lang='en'
-			className='dark'
+			className='light'
 		>
 			<body className={cn(inter.className, nunitoSans.variable, lato.variable)}>
 				<NextUIProvider>
