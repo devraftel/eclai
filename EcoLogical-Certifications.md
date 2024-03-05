@@ -17,6 +17,14 @@ Here are some of the key certifications mentioned in the search results:
 10. ECOLOGO: Products with ECOLOGO certification meet strict environmental standards over their life cycle
 11. USDA Organic: This certification is managed by the United States Department of Agriculture and details requirements for organic products, although it is primarily associated with food
 12. Global Organic Textile Standard (GOTS): While primarily for textiles, GOTS certification ensures organic status and sustainable production methods
+13. Bluesign Approved: This certification ensures that products are produced in an environmentally friendly and safe manner
+14. Climate Neutral Certified: Products with this certification have been certified by Climate Neutral, which means they have offset their carbon emissions
+15. Fair Trade Certified: This certification ensures that products are made using fair labor practices and sustainable farming methods
+16. Green Seal: Products with this certification meet strict environmental standards and are made using sustainable practices
+17. Scientific Certification Systems (SCS): This certification ensures that products are made using sustainable and environmentally friendly practices
+18. LEED (Leadership in Energy and Environmental Design): This certification is for buildings and communities that are designed and operated to be environmentally responsible
+19. ENERGY STAR: Products with this certification meet strict energy efficiency guidelines set by the U.S. Environmental Protection Agency
+20. Veriflora: This certification ensures that products are made using sustainable farming practices
 
 For watches specifically, certifications like GRS for recycled materials, FSC for any wooden components, and RoHS for electronic components are relevant. Additionally, B Corp certification, while not product-specific, can indicate a company's overall commitment to environmental and social responsibility, which may extend to their products. 
 It's important to note that certifications should be granted by a third-party organization and have clear guidelines developed by experts in the field
