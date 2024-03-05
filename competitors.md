@@ -12,6 +12,17 @@ Good On You: Provides detailed ethical ratings for clothing brands, helping cons
 - https://watershed.com/
 - https://www.failory.com/startups/sustainability
 
+### Open Source Projects
+
+1. Calculate your carbon footprint 🏭👣
+   - https://github.com/NMF-earth/carbon-footprint
+
+2. Understand and reduce your carbon footprint 🌱 iOS & Android.
+  - https://github.com/NMF-earth/nmf-app
+
+3. MF FarmVibes.AI: Multi-Modal GeoSpatial ML Models for Agriculture and Sustainability
+  - https://github.com/microsoft/farmvibes-ai
+
 ## Market Saturation Facts
 - Growth in Sustainability Apps: The number of apps focused on sustainability has grown exponentially. A search for "sustainability" on app stores returns hundreds of results, from carbon footprint calculators to sustainable shopping guides.
 - Consumer Interest: According to a Nielsen report, 73% of global consumers say they would definitely or probably change their consumption habits to reduce their environmental impact. This interest fuels the proliferation of apps catering to eco-conscious consumers.
