@@ -51,7 +51,7 @@ export default function RootLayout({
 							<main className='min-h-screen flex flex-col h-full antialiased'>
 								<NavBar />
 								{children}
-								{/* <Footer /> */}
+								
 							</main>
 						</NextUIProvider>
 						<ModalEcoAdvisor />
