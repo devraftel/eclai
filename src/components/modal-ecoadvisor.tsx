@@ -82,10 +82,10 @@ export function ModalEcoAdvisor() {
 				<ModalContent>
 					{(onClose) => (
 						<>
-							<ModalHeader className='flex flex-col gap-1 bg-esl-pm-sec text-esl-bg rounded-t-xl'>
+							<ModalHeader className='flex flex-col gap-1 bg-stone-200 text-esl-fg rounded-t-xl'>
 								Eco Assistant
 							</ModalHeader>
-							<ModalBody className='bg-esl-pm'>
+							<ModalBody className=''>
 								<div className='flex flex-col w-full max-w-md mx-auto stretch min-h-unit-7xl relative'>
 									{messages.map((m) => (
 										<div
@@ -114,7 +114,7 @@ export function ModalEcoAdvisor() {
 									))}
 								</div>
 							</ModalBody>
-							<ModalFooter className='bg-esl-pm-sec rounded-b-xl'>
+							<ModalFooter className='bg-stone-200 rounded-b-xl'>
 								<form
 									onSubmit={handleSubmit}
 									className='w-full'
