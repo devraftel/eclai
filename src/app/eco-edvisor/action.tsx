@@ -8,17 +8,14 @@ import {
   BotCard,
   BotMessage,
   Product,
-  Events,
 } from "@/components/llm-products";
 
 import { sleep, runOpenAICompletion } from "@/lib/utils";
 import { z } from "zod";
 import { ProductSkeleton } from "@/components/llm-products/product-skeleton";
-import { EventsSkeleton } from "@/components/llm-products/events-skeleton";
 import { messageRateLimit } from "@/lib/rate-limit";
 import { headers } from "next/headers";
-import { fetchProductDetailsFromUrl } from "@/lib/ai-engine/fetch-product-url";
-import { fetchProductCertifications } from "@/lib/ai-engine/fetch-product-certifications";
+import { fetchProductDetailsFromUrl, fetchProductCertifications, verifyProductCertifications } from "@/lib/ai-engine";
 import { RequiredCertificatesUI } from "@/components/llm-products/req-certificates";
 
 const openai = new OpenAI({
@@ -61,7 +58,7 @@ async function submitUserMessage(content: string) {
       {
         role: "system",
         content: `\
-You are a Eco Friendly Products AI Advisor bot and you can help users, identify, find and buy Eco Friendly Products, step by step.
+You are a Eco Friendly Products AI Advisor bot and you can help users, identify, find and buy Eco Friendly Products and calculate their products carbon footprint, step by step.
 You can let the user give product link and return product eco friendly status, as many times as they want and ask to process with getting required certifications for it.
 You can let the user know relevant eco friendly certifications when ever user shows a product he is interested in, as many times as they want.
 You and the user can discuss about sustainability and eco friendly products prices and the user can share their goals, or get advices.
@@ -116,30 +113,12 @@ Besides that, you can also chat with users and do some calculations or share sug
             .array(z.string())
             .describe("The manufacturing materials of the product."),
         }),
-      },
-
-      {
-        name: "get_events",
-        description:
-          "List funny imaginary events between user highlighted dates that describe stock activity.",
-        parameters: z.object({
-          events: z.array(
-            z.object({
-              date: z
-                .string()
-                .describe("The date of the event, in ISO-8601 format"),
-              headline: z.string().describe("The headline of the event"),
-              description: z.string().describe("The description of the event"),
-            })
-          ),
-        }),
-      },
+      }
     ],
     temperature: 0.5,
   });
 
   completion.onTextContent((content: string, isFinal: boolean) => {
-    console.log("assistant_content", content);
     reply.update(<BotMessage>{content}</BotMessage>);
     if (isFinal) {
       reply.done();
@@ -279,15 +258,19 @@ Besides that, you can also chat with users and do some calculations or share sug
       );
 
       reply.update(
-        <BotCard>
-          <ProductSkeleton />
-        </BotCard>
+        <BotMessage>
+          {spinner}
+        </BotMessage>
       );
 
-      await sleep(1000);
+      const call_search = await verifyProductCertifications({certifications:certifications, company_name:company_name, manufacturing_materials:manufacturing_materials, product_title:product_title})
+      console.log("call_search",call_search);
+
 
       reply.done(
-        <BotCard>{`Product ${product_title} has valid certifications`}</BotCard>
+        <BotMessage>
+          {call_search}
+          </BotMessage>
       );
 
       aiState.done([
@@ -295,36 +278,11 @@ Besides that, you can also chat with users and do some calculations or share sug
         {
           role: "function",
           name: "verify_product_certifications",
-          content: `[Product name = ${product_title}, company name = ${company_name}, certifications = ${certifications}, manufacturing_materials = ${manufacturing_materials}]`,
+          content: `[Product name = ${product_title}, company name = ${company_name}, certifications to verify = ${certifications}, manufacturing_materials = ${manufacturing_materials}, eci friendly certifications verification results: ${call_search}]`,
         },
       ]);
     }
   );
-
-  completion.onFunctionCall("get_events", async ({ events }) => {
-    reply.update(
-      <BotCard>
-        <EventsSkeleton />
-      </BotCard>
-    );
-
-    await sleep(1000);
-
-    reply.done(
-      <BotCard>
-        <Events events={events} />
-      </BotCard>
-    );
-
-    aiState.done([
-      ...aiState.get(),
-      {
-        role: "function",
-        name: "list_stocks",
-        content: JSON.stringify(events),
-      },
-    ]);
-  });
 
   return {
     id: Date.now(),
