@@ -13,7 +13,7 @@ export const Logo = ({ width = 50, height = 50 }: LogoProps) => {
 			className='z-40 font-semibold flex items-center space-x-2 cursor-pointer'
 		>
 			<Image
-				src={'/logo-dark.svg'}
+				src={'/logo.svg'}
 				alt='Logo'
 				width={width}
 				height={height}
