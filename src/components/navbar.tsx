@@ -2,8 +2,16 @@
 import { useState } from 'react';
 
 import { Logo } from '@/components/logo';
-import { SignInButton, SignUpButton, SignedOut, useAuth } from '@clerk/nextjs';
+import {
+	SignInButton,
+	SignUpButton,
+	SignedOut,
+	UserButton,
+	useAuth,
+	useUser,
+} from '@clerk/nextjs';
 import { Button } from '@nextui-org/button';
+import { Divider } from '@nextui-org/divider';
 import { Link as LinkUI } from '@nextui-org/link';
 import {
 	Navbar,
@@ -18,18 +26,12 @@ import Link from 'next/link';
 
 export const NavBar = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-
 	const { isSignedIn } = useAuth();
-
+	const { user } = useUser();
 	const menuItems = [
-		'Profile',
+		'Eco Assistant',
+		'Eco Advisor',
 		'Dashboard',
-		'Activity',
-		'Analytics',
-		'System',
-		'Deployments',
-		'My Settings',
-		'Team Settings',
 		'Help & Feedback',
 		'Log Out',
 	];
@@ -53,10 +55,23 @@ export const NavBar = () => {
 				{isSignedIn ? (
 					<>
 						<NavbarItem className='hidden lg:flex'>
-							<Link href='#'>Eco Assistant</Link>
+							<Link
+								href='#'
+								className='hover:underline underline-offset-2'
+							>
+								Eco Assistant
+							</Link>
 						</NavbarItem>
-						<NavbarItem className='hidden lg:flex'>
-							<Link href='#'>Eco Advisor</Link>
+						<NavbarItem className='hidden lg:flex lg:ml-4'>
+							<Link
+								href='#'
+								className='hover:underline underline-offset-2'
+							>
+								Eco Advisor
+							</Link>
+						</NavbarItem>
+						<NavbarItem className='hidden lg:flex lg:ml-4'>
+							<UserButton />
 						</NavbarItem>
 					</>
 				) : (
@@ -89,25 +104,68 @@ export const NavBar = () => {
 					</>
 				)}
 			</NavbarContent>
-			<NavbarMenu>
-				{menuItems.map((item, index) => (
-					<NavbarMenuItem key={`${item}-${index}`}>
+			<NavbarMenu className='flex flex-col justify-between'>
+				<div className='flex flex-col space-y-4 py-4'>
+					{/* {menuItems.map((item, index) => (
+						<NavbarMenuItem key={`${item}-${index}`}>
+							<LinkUI
+								color={
+									index === 2
+										? 'primary'
+										: index === menuItems.length - 1
+										? 'danger'
+										: 'foreground'
+								}
+								className='w-full'
+								href='#'
+								size='lg'
+							>
+								{item}
+							</LinkUI>
+						</NavbarMenuItem>
+					))} */}
+					<NavbarMenuItem>
 						<LinkUI
-							color={
-								index === 2
-									? 'primary'
-									: index === menuItems.length - 1
-									? 'danger'
-									: 'foreground'
-							}
+							color='foreground'
 							className='w-full'
 							href='#'
 							size='lg'
 						>
-							{item}
+							Eco Companion
 						</LinkUI>
 					</NavbarMenuItem>
-				))}
+					<NavbarMenuItem>
+						<LinkUI
+							color='foreground'
+							className='w-full'
+							href='#'
+							size='lg'
+						>
+							Eco Advisor
+						</LinkUI>
+					</NavbarMenuItem>
+				</div>
+				<div>
+					<Divider />
+					<div className='space-y-4 py-4'>
+						<NavbarMenuItem>
+							<LinkUI
+								color='foreground'
+								className='w-full'
+								href='#'
+								size='lg'
+							>
+								Log Out
+							</LinkUI>
+						</NavbarMenuItem>
+						<NavbarMenuItem>
+							<div className='flex items-center space-x-2'>
+								<UserButton />
+								<p>{user?.fullName}</p>
+							</div>
+						</NavbarMenuItem>
+					</div>
+				</div>
 			</NavbarMenu>
 		</Navbar>
 	);

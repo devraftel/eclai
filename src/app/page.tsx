@@ -71,12 +71,6 @@ export default function Home() {
 						</h1>
 
 						<div className='mt-8 md:mt-12 sm:flex items-center justify-center space-x-2 md:space-x-4 max-w-md w-full hidden'>
-							{/* <Button
-								className='flex-1'
-								variant='bordered'
-							>
-								Sign Up Now!
-							</Button> */}
 							<SignedOut>
 								<SignUpButton mode={'modal'}>
 									<Button
@@ -265,10 +259,6 @@ export default function Home() {
 								environmental impact, one conscious choice at a time. Together,
 								we can make sustainability not just a goal, but a way of life.
 							</p>
-
-							{/* <Button className='bg-esl-bg text-esl-fg border-esl-pm-sec border w-full justify-start md:justify-center md:w-fit font-medium'>
-								Sign Up Now!
-							</Button> */}
 
 							<SignedOut>
 								<SignUpButton mode={'modal'}>
