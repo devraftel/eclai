@@ -1,5 +1,6 @@
 import Image from 'next/image';
 
+import { AdvisorButton } from '@/components/AdvisorButton';
 import { MaxWidthWrapper } from '@/components/max-width-wrapper';
 import { AnimatedTooltip } from '@/components/ui/animated-tooltip';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
@@ -81,12 +82,12 @@ export default function Home() {
 									</Button>
 								</SignUpButton>
 							</SignedOut>
-							<Button
+							<AdvisorButton
 								className='bg-esl-pm border border-esl-pm-sec text-esl-bg flex-1'
 								variant='shadow'
 							>
 								Try Demo
-							</Button>
+							</AdvisorButton>
 						</div>
 						<div className='sm:hidden mt-8 grid gap-y-2 w-full'>
 							<SignedOut>

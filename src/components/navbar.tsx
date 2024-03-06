@@ -2,6 +2,7 @@
 import { useState } from 'react';
 
 import { Logo } from '@/components/logo';
+import { Button as ShadButton } from '@/components/ui/button';
 import {
 	SignInButton,
 	SignUpButton,
@@ -13,6 +14,7 @@ import {
 import { Button } from '@nextui-org/button';
 import { Divider } from '@nextui-org/divider';
 import { Link as LinkUI } from '@nextui-org/link';
+import { useDisclosure } from '@nextui-org/modal';
 import {
 	Navbar,
 	NavbarBrand,
@@ -24,10 +26,18 @@ import {
 } from '@nextui-org/navbar';
 import Link from 'next/link';
 
+import { useEcoAdvisorStore } from '@/store/ecoadvisor';
+
 export const NavBar = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 	const { isSignedIn } = useAuth();
 	const { user } = useUser();
+	const { isEcoAdvisorOpen, setIsEcoAdvisorOpen } = useEcoAdvisorStore();
+
+	const { onOpen } = useDisclosure({
+		id: 'eco-advisor',
+	});
+
 	const menuItems = [
 		'Eco Assistant',
 		'Eco Advisor',
@@ -54,21 +64,30 @@ export const NavBar = () => {
 			<NavbarContent justify='end'>
 				{isSignedIn ? (
 					<>
-						<NavbarItem className='hidden lg:flex'>
+						{/* <NavbarItem className='hidden lg:flex'>
 							<Link
 								href='#'
 								className='hover:underline underline-offset-2'
 							>
 								Eco Assistant
 							</Link>
-						</NavbarItem>
+						</NavbarItem> */}
 						<NavbarItem className='hidden lg:flex lg:ml-4'>
-							<Link
-								href='#'
-								className='hover:underline underline-offset-2'
+							<ShadButton
+								// href='#'
+								// onPress={setIsEcoAdvisorOpen}
+								variant={'ghost'}
+								onClick={() => {
+									// console.log('Eco Advisor');
+									// alert('Eco Advisor');
+									setIsEcoAdvisorOpen(!isEcoAdvisorOpen);
+									// onOpen();
+								}}
+								// variant='light'
+								className='hover:underline hover:bg-transparent underline-offset-2 font-nunitoSans text-base'
 							>
 								Eco Advisor
-							</Link>
+							</ShadButton>
 						</NavbarItem>
 						<NavbarItem className='hidden lg:flex lg:ml-4'>
 							<UserButton />

@@ -1,10 +1,12 @@
 import { Footer } from '@/components/footer';
+import { ModalEcoAdvisor } from '@/components/modal-ecoadvisor';
 import { NavBar } from '@/components/navbar';
 import { cn } from '@/lib/utils';
 import { NextUIProvider } from '@/providers/nextui-provider';
 import { ClerkProvider } from '@clerk/nextjs';
 import type { Metadata } from 'next';
 import { Inter, Lato, Nunito_Sans } from 'next/font/google';
+import { AI } from './action';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -36,22 +38,25 @@ export default function RootLayout({
 			className='light'
 		>
 			<ClerkProvider>
-				<body
-					className={cn(
-						'',
-						inter.className,
-						nunitoSans.variable,
-						lato.variable
-					)}
-				>
-					<NextUIProvider>
-						<main className='min-h-screen flex flex-col h-full antialiased'>
-							<NavBar />
-							{children}
-							<Footer />
-						</main>
-					</NextUIProvider>
-				</body>
+				<AI>
+					<body
+						className={cn(
+							'',
+							inter.className,
+							nunitoSans.variable,
+							lato.variable
+						)}
+					>
+						<NextUIProvider>
+							<main className='min-h-screen flex flex-col h-full antialiased'>
+								<NavBar />
+								{children}
+								<Footer />
+							</main>
+						</NextUIProvider>
+						<ModalEcoAdvisor />
+					</body>
+				</AI>
 			</ClerkProvider>
 		</html>
 	);
