@@ -67,6 +67,12 @@ const config = {
 					secondary200: '#927355',
 					secondary300: '#7c6147',
 					accent100: '#FFDA63',
+					bg: '#F7F6F0',
+					fg: '#373634',
+					pm: '#496952',
+					'pm-sec': '#2A3E2F',
+					sc: '#C0BEB5',
+					'sc-sec': '#A88563',
 				},
 			},
 			borderRadius: {

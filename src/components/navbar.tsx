@@ -54,7 +54,7 @@ export const NavBar = () => {
 					<Button
 						as={Link}
 						// color='primary'
-						className='bg-primary text-primary-foreground'
+						className='bg-esl-pm text-esl-bg'
 						href='#'
 						variant='flat'
 					>
