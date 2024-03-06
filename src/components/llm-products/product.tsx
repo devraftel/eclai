@@ -1,35 +1,33 @@
 "use client";
 
-// import { useEffect, useId } from "react";
-// import { useAIState } from "ai/rsc";
-
-// import type { AI } from "../../app/action";
 import Link from "next/link";
 import Image from "next/image";
 
 export function Product({
   product_title,
   company_name,
-  imageUrl,
+  image_url,
   product_url,
   price,
   currency,
+  manufacturing_materials
 }: ProductDetails) {
-  // const [history, setHistory] = useAIState<typeof AI>();
-  // const id = useId();
 
-  // useEffect(() => {
-  //   if (product_title) {
-  //     const message = {
-  //       id,
-  //       role: "system" as const,
-  //       content: `The product ${product_title} was found. Now shall we get the required eco certifications for it`,
-  //     };
+  // TODO: Update UI to Represent this all Data:
 
-  //       setHistory([...history, message]);
-     
-  //   }
-  // }, [product_title, id, setHistory]);
+  // i.e: {
+  //   product_id: 'B01N5TV2IQ',
+  //   product_title: 'Apple iPhone 7, 32GB, Black - Fully Unlocked (Renewed)',
+  //   company_name: 'Apple',
+  //   price: '$159.99',
+  //   currency: 'USD',
+  //   image_url: [
+  //     'https://images-na.ssl-images-amazon.com/images/I/41D9NDiSzjL._AC_US40_.jpg'
+  //   ],
+  //   product_url: 'https://www.amazon.com/SAMSUNG-Bluetooth-Smartwatch-Improved-Sapphire/dp/B0B2HXJZ98?ref_=Oct_DLandingS_D_f9ccecf7_0',
+  //   manufacturing_materials: [ 'Glass', 'Aluminum' ]
+  // }
+
 
   return (
     <div className="p-4 text-green-400 border rounded-xl bg-zinc-950">
@@ -46,13 +44,16 @@ export function Product({
         {company_name ? company_name : "No company Found"}
       </div>
 
-      <Image
-        src={imageUrl}
-        alt={product_title}
-        width={200}
-        height={200}
-        className="rounded-md"
-      />
+      {image_url.map((url: string, index: number) => (
+        <Image
+          key={index}
+          src={url}
+          alt={product_title}
+          width={200}
+          height={200}
+          className="rounded-md"
+        />
+      ))}
 
     </div>
   );

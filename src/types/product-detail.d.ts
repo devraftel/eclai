@@ -2,10 +2,11 @@ type ProductDetails = {
     id: string;
     product_title: string;
     company_name: string;
-    price: number;
+    price: string;
     currency: string;
-    imageUrl: string;
-    product_url: string;    
+    image_url: string[];
+    product_url: string;
+    manufacturing_materials: string[]
   };
   
 
