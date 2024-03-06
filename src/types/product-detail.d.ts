@@ -8,3 +8,10 @@ type ProductDetails = {
     product_url: string;    
   };
   
+
+  type VerifyProductCertificationProps = {
+    product_title: string
+    company_name: string
+    certifications: string[]
+    manufacturing_materials: string[] | undefined
+}
