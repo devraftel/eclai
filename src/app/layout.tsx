@@ -2,6 +2,7 @@ import { Footer } from '@/components/footer';
 import { NavBar } from '@/components/navbar';
 import { cn } from '@/lib/utils';
 import { NextUIProvider } from '@/providers/nextui-provider';
+import { ClerkProvider } from '@clerk/nextjs';
 import type { Metadata } from 'next';
 import { Inter, Lato, Nunito_Sans } from 'next/font/google';
 import './globals.css';
@@ -34,17 +35,24 @@ export default function RootLayout({
 			lang='en'
 			className='light'
 		>
-			<body
-				className={cn('', inter.className, nunitoSans.variable, lato.variable)}
-			>
-				<NextUIProvider>
-					<main className='min-h-screen flex flex-col h-full antialiased'>
-						<NavBar />
-						{children}
-						<Footer />
-					</main>
-				</NextUIProvider>
-			</body>
+			<ClerkProvider>
+				<body
+					className={cn(
+						'',
+						inter.className,
+						nunitoSans.variable,
+						lato.variable
+					)}
+				>
+					<NextUIProvider>
+						<main className='min-h-screen flex flex-col h-full antialiased'>
+							<NavBar />
+							{children}
+							<Footer />
+						</main>
+					</NextUIProvider>
+				</body>
+			</ClerkProvider>
 		</html>
 	);
 }

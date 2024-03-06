@@ -4,6 +4,7 @@ import { MaxWidthWrapper } from '@/components/max-width-wrapper';
 import { AnimatedTooltip } from '@/components/ui/animated-tooltip';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { HoverEffect } from '@/components/ui/card-hover-effect';
+import { SignUpButton, SignedOut } from '@clerk/nextjs';
 import { Button } from '@nextui-org/button';
 import { Divider } from '@nextui-org/divider';
 
@@ -70,12 +71,22 @@ export default function Home() {
 						</h1>
 
 						<div className='mt-8 md:mt-12 sm:flex items-center justify-center space-x-2 md:space-x-4 max-w-md w-full hidden'>
-							<Button
+							{/* <Button
 								className='flex-1'
 								variant='bordered'
 							>
 								Sign Up Now!
-							</Button>
+							</Button> */}
+							<SignedOut>
+								<SignUpButton mode={'modal'}>
+									<Button
+										className='flex-1'
+										variant='bordered'
+									>
+										Sign Up Now!
+									</Button>
+								</SignUpButton>
+							</SignedOut>
 							<Button
 								className='bg-esl-pm border border-esl-pm-sec text-esl-bg flex-1'
 								variant='shadow'
@@ -84,12 +95,16 @@ export default function Home() {
 							</Button>
 						</div>
 						<div className='sm:hidden mt-8 grid gap-y-2 w-full'>
-							<Button
-								className='flex-1'
-								variant='bordered'
-							>
-								Sign Up Now!
-							</Button>
+							<SignedOut>
+								<SignUpButton mode={'modal'}>
+									<Button
+										className='flex-1'
+										variant='bordered'
+									>
+										Sign Up Now!
+									</Button>
+								</SignUpButton>
+							</SignedOut>
 							<Button
 								className='bg-esl-pm border border-esl-pm-sec text-esl-bg flex-1'
 								variant='shadow'
@@ -251,9 +266,17 @@ export default function Home() {
 								we can make sustainability not just a goal, but a way of life.
 							</p>
 
-							<Button className='bg-esl-bg text-esl-fg border-esl-pm-sec border w-full justify-start md:justify-center md:w-fit font-medium'>
+							{/* <Button className='bg-esl-bg text-esl-fg border-esl-pm-sec border w-full justify-start md:justify-center md:w-fit font-medium'>
 								Sign Up Now!
-							</Button>
+							</Button> */}
+
+							<SignedOut>
+								<SignUpButton mode={'modal'}>
+									<Button className='bg-esl-bg text-esl-fg border-esl-pm-sec border w-full justify-start md:justify-center md:w-fit font-medium'>
+										Sign Up Now!
+									</Button>
+								</SignUpButton>
+							</SignedOut>
 						</div>
 					</div>
 				</MaxWidthWrapper>

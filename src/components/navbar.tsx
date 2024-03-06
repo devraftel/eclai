@@ -2,6 +2,7 @@
 import { useState } from 'react';
 
 import { Logo } from '@/components/logo';
+import { SignInButton, SignUpButton, SignedOut, useAuth } from '@clerk/nextjs';
 import { Button } from '@nextui-org/button';
 import { Link as LinkUI } from '@nextui-org/link';
 import {
@@ -17,6 +18,8 @@ import Link from 'next/link';
 
 export const NavBar = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+
+	const { isSignedIn } = useAuth();
 
 	const menuItems = [
 		'Profile',
@@ -47,20 +50,44 @@ export const NavBar = () => {
 			</NavbarContent>
 
 			<NavbarContent justify='end'>
-				<NavbarItem className='hidden lg:flex'>
-					<Link href='#'>Login</Link>
-				</NavbarItem>
-				<NavbarItem>
-					<Button
-						as={Link}
-						// color='primary'
-						className='bg-esl-pm text-esl-bg'
-						href='#'
-						variant='flat'
-					>
-						Sign Up
-					</Button>
-				</NavbarItem>
+				{isSignedIn ? (
+					<>
+						<NavbarItem className='hidden lg:flex'>
+							<Link href='#'>Eco Assistant</Link>
+						</NavbarItem>
+						<NavbarItem className='hidden lg:flex'>
+							<Link href='#'>Eco Advisor</Link>
+						</NavbarItem>
+					</>
+				) : (
+					<>
+						<NavbarItem className='hidden lg:flex'>
+							<SignedOut>
+								<SignInButton
+									mode={'modal'}
+									afterSignInUrl={'/'}
+								>
+									<Link href='#'>Login</Link>
+								</SignInButton>
+							</SignedOut>
+						</NavbarItem>
+						<NavbarItem>
+							<SignedOut>
+								<SignUpButton mode={'modal'}>
+									<Button
+										as={Link}
+										// color='primary'
+										className='bg-esl-pm text-esl-bg'
+										href='#'
+										variant='flat'
+									>
+										Sign Up
+									</Button>
+								</SignUpButton>
+							</SignedOut>
+						</NavbarItem>
+					</>
+				)}
 			</NavbarContent>
 			<NavbarMenu>
 				{menuItems.map((item, index) => (
