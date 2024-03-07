@@ -63,9 +63,9 @@ export function EmptyScreen({
 					))}
 				</div>
 			</div>
-			<p className='leading-normal text-esl-bg text-[0.8rem] text-center'>
+			{/* <p className='leading-normal text-esl-bg text-[0.8rem] text-center'>
 				Note: This is not real advice.
-			</p>
+			</p> */}
 		</div>
 	);
 }

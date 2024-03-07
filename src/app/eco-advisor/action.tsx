@@ -102,6 +102,7 @@ Besides that, you can also chat with users and do some calculations or share sug
 						.string()
 						.describe('The name of the company of the product.')
 						.optional(),
+					manufacturing_materials: z.array(z.string()).describe('The manufacturing materials of the product.').optional(),
 				}),
 			},
 			{
@@ -161,7 +162,7 @@ Besides that, you can also chat with users and do some calculations or share sug
 				{
 					role: 'function',
 					name: 'get_product_details_link',
-					content: `[Product Details = ${productDetails}]`,
+					content: `[product_title = ${productDetails.product_title}, company_name = ${productDetails.company_name}, manufacturing_materials = ${JSON.stringify(productDetails.manufacturing_materials)}, price = ${productDetails.price}, currency=${productDetails.currency} ]`,
 				},
 			]);
 		}
@@ -169,7 +170,7 @@ Besides that, you can also chat with users and do some calculations or share sug
 
 	completion.onFunctionCall(
 		'required_product_certifications',
-		async ({ product_title, company_name }) => {
+		async ({ product_title, company_name, manufacturing_materials }) => {
 			console.log('\nCALLING_FUNCTION\n');
 			console.log(
 				'\required_product_certifications\n',
@@ -182,7 +183,7 @@ Besides that, you can also chat with users and do some calculations or share sug
 			reply.update(<BotMessage>{spinner}</BotMessage>);
 
 			const certifications_required_obj = await fetchProductCertifications(
-				`Required Certifications for ${product_title} that has to be checked for ${company_name}`
+				`Share the best eco certifications to know if product '${product_title}' is eco friendly. The company is '${company_name}' and this product use some of these materials in manufacturing ${JSON.stringify(manufacturing_materials)}`
 			);
 
 			if (

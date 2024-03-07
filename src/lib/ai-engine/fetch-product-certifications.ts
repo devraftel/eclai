@@ -1,8 +1,7 @@
 const SYSTEM_SEED_MESSAGE: string = `\
 Role and Goal: Eco Certification Finder is specifically tailored to identify relevant sustainability and environmental certifications for products based 
-on their name and the company that manufactures them. This tool suggests certifications that users should look for to verify a product's sustainability 
-and environmental credentials, thereby facilitating informed purchasing decisions. It focuses on product eco-certifications across various industries, 
-including textiles, electronics, food, and more.\n
+on their name, the company that manufactures them and optionally manufacturing materials. This tool suggests certifications to look for to verify a product's sustainability 
+and environmental credentials, thereby facilitating informed purchasing decisions. 
 
 Constraints: Certification Finder operates under the premise that it does not confirm the certification status of a product but instead advises on which 
 eco-certifications could be applicable. It uses the product's type and the manufacturing company's industry to guide its suggestions.\n
@@ -10,17 +9,12 @@ eco-certifications could be applicable. It uses the product's type and the manuf
 Guidelines: Responses are aimed to be succinct and informative under 60-70 words in JSON format, connecting the product's specifics to the most relevant eco-certifications. When a product's 
 type or industry is known for particular environmental or sustainability challenges, Certification Finder emphasizes certifications addressing these areas.\n
 
-Clarification: Should there be insufficient details about the product or company, Certification Finder will seek more information to accurately pinpoint 
-suitable eco-certifications.\n
-
-Personalization: The tool is designed to cater to users' varying levels of awareness about eco-certification labels, providing in-depth explanations for 
-lesser-known ones and concise summaries for familiar certifications. Its goal is to educate users on the importance and impact of different eco-certifications 
-in promoting sustainable and environmentally friendly production practices.
+Clarification: Should there be insufficient details about the product or company, Eco Certification Finder will share the best fit eco-certifications and each one will have logical reason to include this certification.\n
 
 Certifications_List: In the United States, there are several certifications that can indicate if a product, such as a watch, is eco-friendly or sustainable. 
 These certifications are awarded by various organizations and signify adherence to certain environmental and ethical standards. 
 
-Here are some of the key certifications mentioned in the search results:
+Here are some of the key certifications to return:
 
 1. Certified B Corporation: B Corp certification is for overall businesses that display high standards of social and environmental behavior, not specifically for products
 2. Forestry Stewardship Council (FSC): FSC certification is relevant for products made from wood or paper, ensuring that the materials come from responsibly managed forests
@@ -45,11 +39,12 @@ Here are some of the key certifications mentioned in the search results:
 
 JSON RESPONSE: Always Return the Product Most Relevant Eco-Certifications and each one will have logical reason to include this certification. This reason shall be no more than 60 words in JSON Format\n
 
-If you need more info then ask in this format only { "request_more_info": "Please provide additional information about the product, such as the material it is made from, the company that manufactures it, or any specific sustainability claims or goals the company has set. This information will help identify the most relevant eco-certifications." }
+If you need more info then ask in this format only { "request_more_info": "" }
 `;
+
 const Mock_User_Message: string = `\
-I am looking for eco-certifications for a pair of jeans from Levi's.\
-`;
+Share the best eco certifications to know if product 'Levi's Men's 505 Regular Fit Jeans (Also Available in Big & Tall)' is eco friendly. \
+The company is 'Levi's' and this product use some of these materials in manufacturing ''100% U.S. Cotton''`;
 
 const Mock_AI_Response: string = `
 { "certifications": [
@@ -73,63 +68,61 @@ const Mock_AI_Response: string = `
 }
 `;
 
-import OpenAI from 'openai';
+import OpenAI from "openai";
 
-export const runtime = 'edge';
+export const runtime = "edge";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! });
 
 export async function fetchProductCertifications(user_message: string) {
-	const all_messages: Array<Object> = [
-		{
-			role: 'system',
-			content: SYSTEM_SEED_MESSAGE,
-		},
-		{
-			role: 'user',
-			content: Mock_User_Message,
-		},
-		{
-			role: 'system',
-			content: Mock_AI_Response,
-		},
-		{
-			role: 'user',
-			content: user_message,
-		},
-	];
+  const all_messages: Array<Object> = [
+    {
+      role: "system",
+      content: SYSTEM_SEED_MESSAGE,
+    },
+    {
+      role: "user",
+      content: Mock_User_Message,
+    },
+    {
+      role: "system",
+      content: Mock_AI_Response,
+    },
+    {
+      role: "user",
+      content: user_message,
+    },
+  ];
 
-	// Request the OpenAI API for the response based on the prompt
-	const response = await openai.chat.completions.create({
-		// model: 'gpt-4-1106-preview',
-		model: 'gpt-3.5-turbo',
-		messages: all_messages as [],
-		max_tokens: 500,
-		temperature: 0.7,
-		top_p: 1,
-		response_format: {
-			type: 'json_object',
-		},
-	});
+  // Request the OpenAI API for the response based on the prompt
+  const response = await openai.chat.completions.create({
+    model: 'gpt-4-1106-preview',
+    // model: "gpt-3.5-turbo",
+    messages: all_messages as [],
+    max_tokens: 500,
+    temperature: 0.7,
+    top_p: 1,
+    response_format: {
+      type: "json_object",
+    },
+  });
 
-	const json_res = response.choices[0].message.content;
+  const json_res = response.choices[0].message.content;
 
-	if (json_res === undefined || json_res === null) {
-		throw new Error('No response from OpenAI');
-	}
+  if (json_res === undefined || json_res === null) {
+    throw new Error("No response from OpenAI");
+  }
 
-	console.log('json_res', json_res);
+  // # 2. Parse the response
+  const obj_out = JSON.parse(json_res);
 
-	// # 2. Parse the response
-	const obj_out = JSON.parse(json_res);
+  // Check if object type is AllRequiredCertificatesProps or RequestMoreInfo and return the appropriate Asserted Type
 
-	// Check if object type is AllRequiredCertificatesProps or RequestMoreInfo and return the appropriate Asserted Type
-
-	if (obj_out.hasOwnProperty('certifications')) {
-		return obj_out as AllRequiredCertificatesProps;
-	} else if (obj_out.hasOwnProperty('request_more_info')) {
-		return obj_out as RequestMoreInfo;
-	} else {
-		throw new Error('Invalid response from OpenAI');
-	}
+  if (obj_out.hasOwnProperty("certifications")) {
+    return obj_out as AllRequiredCertificatesProps;
+  } else if (obj_out.hasOwnProperty("request_more_info")) {
+    return obj_out as RequestMoreInfo;
+  } else {
+    throw new Error("Invalid response from OpenAI");
+  }
 }
