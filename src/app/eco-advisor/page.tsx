@@ -1,7 +1,7 @@
 'use client';
 
 import { useActions, useUIState } from 'ai/rsc';
-import { useEffect, useRef, useState } from 'react';
+import { InputHTMLAttributes, useEffect, useRef, useState } from 'react';
 
 import { type AI } from './action';
 
@@ -29,6 +29,7 @@ export default function Page() {
 	const { formRef, onKeyDown } = useEnterSubmit();
 	const inputRef = useRef<HTMLTextAreaElement>(null);
 	const [link, setLink] = useState(false);
+	const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
 	useEffect(() => {
 		const handleKeyDown = (e: KeyboardEvent) => {
@@ -94,6 +95,8 @@ export default function Page() {
 																finalMsg
 															);
 
+															console.log('IMAGEs', data.get('image'));
+
 															console.log('responseMessage: ', responseMessage);
 
 															setMessages((currentMessages) => [
@@ -102,6 +105,15 @@ export default function Page() {
 															]);
 														}}
 													>
+														<ImageUploadInput
+															label='Upload Image'
+															name='image'
+															onChange={(e) =>
+																setSelectedImage(
+																	e.target.files ? e.target.files[0] : null
+																)
+															} // Update the selected image when a file is chosen
+														/>
 														<Input
 															name='link'
 															variant='bordered'
@@ -118,6 +130,12 @@ export default function Page() {
 															<SendIcon className='text-esl-bg' />
 														</Button>
 													</form>
+													{selectedImage && (
+														<img
+															src={URL.createObjectURL(selectedImage)}
+															alt='Selected'
+														/>
+													)}
 												</div>
 											),
 										},
@@ -265,3 +283,30 @@ export default function Page() {
 		</div>
 	);
 }
+
+import { ImageIcon } from 'lucide-react';
+
+interface ImageUploadInputProps extends InputHTMLAttributes<HTMLInputElement> {
+	label?: string;
+}
+
+const ImageUploadInput = ({ label, ...props }: ImageUploadInputProps) => {
+	return (
+		<div className='group cursor-pointer  border rounded-2xl p-2 bg-white/75 backdrop-blur drop-shadow'>
+			<label className='font-lato flex items-center tracking-tight leading-4 group-hover:cursor-pointer'>
+				{label}
+				<ImageIcon
+					className='group-hover:cursor-pointer'
+					size={36}
+				/>
+				<input
+					type='file'
+					accept='image/*'
+					multiple
+					{...props}
+					style={{ display: 'none' }}
+				/>
+			</label>
+		</div>
+	);
+};
