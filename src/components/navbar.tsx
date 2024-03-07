@@ -38,10 +38,10 @@ export const NavBar = () => {
 	});
 
 	const menuItems = [
-		'Eco Assistant',
+		// 'Eco Assistant',
 		'Eco Advisor',
-		'Dashboard',
-		'Help & Feedback',
+		// 'Dashboard',
+		// 'Help & Feedback',
 		'Log Out',
 	];
 
@@ -143,20 +143,20 @@ export const NavBar = () => {
 						</NavbarMenuItem>
 					))} */}
 					<NavbarMenuItem>
-						<LinkUI
+						{/* <LinkUI
 							color='foreground'
 							className='w-full'
 							href='#'
 							size='lg'
 						>
 							Eco Companion
-						</LinkUI>
+						</LinkUI> */}
 					</NavbarMenuItem>
 					<NavbarMenuItem>
 						<LinkUI
 							color='foreground'
 							className='w-full'
-							href='#'
+							href='/eco-advisor'
 							size='lg'
 						>
 							Eco Advisor

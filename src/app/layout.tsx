@@ -1,4 +1,3 @@
-import { Footer } from '@/components/footer';
 import { ModalEcoAdvisor } from '@/components/modal-ecoadvisor';
 import { NavBar } from '@/components/navbar';
 import { cn } from '@/lib/utils';
@@ -37,7 +36,7 @@ export default function RootLayout({
 			lang='en'
 			className='light'
 		>
-			<ClerkProvider>
+			<ClerkProvider afterSignInUrl='/eco-advisor'>
 				<AI>
 					<body
 						className={cn(
@@ -51,7 +50,6 @@ export default function RootLayout({
 							<main className='min-h-screen flex flex-col h-full antialiased'>
 								<NavBar />
 								{children}
-								
 							</main>
 						</NextUIProvider>
 						<ModalEcoAdvisor />

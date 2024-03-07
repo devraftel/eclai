@@ -100,12 +100,12 @@ export default function Home() {
 									</Button>
 								</SignUpButton>
 							</SignedOut>
-							<Button
+							<AdvisorButton
 								className='bg-esl-pm border border-esl-pm-sec text-esl-bg flex-1'
 								variant='shadow'
 							>
 								Try Demo
-							</Button>
+							</AdvisorButton>
 						</div>
 					</div>
 				</MaxWidthWrapper>
