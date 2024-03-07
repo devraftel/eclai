@@ -9,7 +9,9 @@ export async function verifyProductCertifications({certifications, company_name,
     console.log(typeof JSON.stringify(INPUT))
 
     // Fetch from /ai_search Microservice URL
-    const data = await fetch(`${process.env.SEARCH_ENGINE_MICROSERVICE_URL}/ai-search?prompt=${JSON.stringify(INPUT)}`)
+    const data = await fetch(`${process.env.SEARCH_ENGINE_MICROSERVICE_URL}/ai-search?prompt=${JSON.stringify(INPUT)}`, {
+        cache: "no-cache"
+      })
 
     const res = await data.json()
 

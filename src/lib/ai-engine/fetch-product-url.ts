@@ -7,7 +7,9 @@ export const fetchProductDetailsFromUrl = async (
     `${process.env.URL_AI_LOADER_MICROSERVICE_URL}`
   );
   const data = await fetch(
-    `${process.env.URL_AI_LOADER_MICROSERVICE_URL}/ai_url?url=${url}`
+    `${process.env.URL_AI_LOADER_MICROSERVICE_URL}/ai_url?url=${url}`, {
+      cache: "no-cache"
+    }
   );
   const res: ProductDetails = await data.json();
 
