@@ -18,7 +18,7 @@ import {
 	verifyProductCertifications,
 } from '@/lib/ai-engine';
 import { messageRateLimit } from '@/lib/rate-limit';
-import { runOpenAICompletion } from '@/lib/utils';
+import { runOpenAICompletion, sleep } from '@/lib/utils';
 import { headers } from 'next/headers';
 import { z } from 'zod';
 
@@ -149,20 +149,88 @@ Besides that, you can also chat with users and do some calculations or share sug
 			// Calling the function to get the product details
 			const productDetails = await fetchProductDetailsFromUrl(product_link);
 
-			// await sleep(1000);
-
-			reply.done(
+			reply.update(
 				<BotCard>
 					<Product {...productDetails} />
 				</BotCard>
 			);
+
+			await sleep(2000);
+
+		
+
+			const certifications_required_obj = await fetchProductCertifications(
+				`Share the best eco certifications to know if product '${productDetails.product_title}' is eco friendly. The company is '${productDetails.company_name}' and this product use some of these materials in manufacturing ${JSON.stringify(productDetails.manufacturing_materials)}`
+			);
+
+			if (
+				certifications_required_obj === undefined ||
+				certifications_required_obj === null
+			) {
+				reply.done(
+					<BotCard>
+						{"No Required Eco Certifications were found for given Product - Try Again with More Details!"}
+					</BotCard>
+				)
+				aiState.done([
+					...aiState.get(),
+					{
+						role: 'function',
+						name: 'get_product_details_link',
+						content: `[product_title = ${productDetails.product_title}, company_name = ${productDetails.company_name}, manufacturing_materials = ${JSON.stringify(productDetails.manufacturing_materials)}, price = ${productDetails.price}, currency=${productDetails.currency}, Request More Info = {"No Required Eco Certifications were found for given Product - Try Again with More Details!"} ]`,
+					},
+				]);
+			}
+
+			if (certifications_required_obj.hasOwnProperty('request_more_info')) {
+				const castCertificationsResponseObjType =
+					certifications_required_obj as RequestMoreInfo;
+				reply.done(
+					<BotCard>
+						{castCertificationsResponseObjType.request_more_info}
+					</BotCard>
+				);
+
+				aiState.done([
+					...aiState.get(),
+					{
+						role: 'function',
+						name: 'get_product_details_link',
+						content: `[product_title = ${productDetails.product_title}, company_name = ${productDetails.company_name}, manufacturing_materials = ${JSON.stringify(productDetails.manufacturing_materials)}, price = ${productDetails.price}, currency=${productDetails.currency}, Request More Info = ${castCertificationsResponseObjType.request_more_info}]`,
+					},
+				]);
+			}
+
+
+			const castCertificationsResponseObjType = certifications_required_obj as AllRequiredCertificatesProps;
+			reply.append(
+				<BotCard>
+					<RequiredCertificatesUI
+						certifications={castCertificationsResponseObjType.certifications}
+					/>
+				</BotCard>
+			);
+
+			await sleep(2000);
+
+		
+
+			const call_search = await verifyProductCertifications({ 
+				certifications: castCertificationsResponseObjType.certifications, 
+				company_name: productDetails.company_name,
+				manufacturing_materials: productDetails.manufacturing_materials,
+				product_title: productDetails.product_title,
+			});
+
+
+			reply.append(<BotMessage>{call_search}</BotMessage>);
 
 			aiState.done([
 				...aiState.get(),
 				{
 					role: 'function',
 					name: 'get_product_details_link',
-					content: `[product_title = ${productDetails.product_title}, company_name = ${productDetails.company_name}, manufacturing_materials = ${JSON.stringify(productDetails.manufacturing_materials)}, price = ${productDetails.price}, currency=${productDetails.currency} ]`,
+					content: `[product_title = ${productDetails.product_title}, company_name = ${productDetails.company_name}, manufacturing_materials = ${JSON.stringify(productDetails.manufacturing_materials)}, price = ${productDetails.price}, currency=${productDetails.currency} Required Certifications for Product to be eco friendly are = ${castCertificationsResponseObjType.certifications}, ECO Friendly Certifications verification results: ${call_search} ]`,
 				},
 			]);
 		}
