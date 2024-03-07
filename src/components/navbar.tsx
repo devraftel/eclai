@@ -2,7 +2,6 @@
 import { useState } from 'react';
 
 import { Logo } from '@/components/logo';
-import { Button as ShadButton } from '@/components/ui/button';
 import {
 	SignInButton,
 	SignUpButton,
@@ -64,16 +63,16 @@ export const NavBar = () => {
 			<NavbarContent justify='end'>
 				{isSignedIn ? (
 					<>
-						{/* <NavbarItem className='hidden lg:flex'>
+						<NavbarItem className='hidden lg:flex'>
 							<Link
-								href='#'
+								href='/eco-advisor'
 								className='hover:underline underline-offset-2'
 							>
-								Eco Assistant
+								Eco Advisor
 							</Link>
-						</NavbarItem> */}
+						</NavbarItem>
 						<NavbarItem className='hidden lg:flex lg:ml-4'>
-							<ShadButton
+							{/* <ShadButton
 								// href='#'
 								// onPress={setIsEcoAdvisorOpen}
 								variant={'ghost'}
@@ -87,7 +86,7 @@ export const NavBar = () => {
 								className='hover:underline hover:bg-transparent underline-offset-2 font-nunitoSans text-base'
 							>
 								Eco Advisor
-							</ShadButton>
+							</ShadButton> */}
 						</NavbarItem>
 						<NavbarItem className='hidden lg:flex lg:ml-4'>
 							<UserButton />

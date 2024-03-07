@@ -46,10 +46,10 @@ Here are some of the key certifications mentioned in the search results:
 JSON RESPONSE: Always Return the Product Most Relevant Eco-Certifications and each one will have logical reason to include this certification. This reason shall be no more than 60 words in JSON Format\n
 
 If you need more info then ask in this format only { "request_more_info": "Please provide additional information about the product, such as the material it is made from, the company that manufactures it, or any specific sustainability claims or goals the company has set. This information will help identify the most relevant eco-certifications." }
-`
+`;
 const Mock_User_Message: string = `\
 I am looking for eco-certifications for a pair of jeans from Levi's.\
-`
+`;
 
 const Mock_AI_Response: string = `
 { "certifications": [
@@ -71,66 +71,65 @@ const Mock_AI_Response: string = `
       }
   ]
 }
-`
+`;
 
-import OpenAI from 'openai'
+import OpenAI from 'openai';
 
-export const runtime = 'edge'
+export const runtime = 'edge';
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! })
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! });
 
 export async function fetchProductCertifications(user_message: string) {
-  const all_messages: Array<Object> = [
-    {
-      role: "system",
-      content: SYSTEM_SEED_MESSAGE,
-    },
-    {
-      role: "user",
-      content: Mock_User_Message,
-    },
-    {
-      role: "system",
-      content: Mock_AI_Response,
-    },
-    {
-        role: "user",
-        content: user_message,
-    },
-  ]
+	const all_messages: Array<Object> = [
+		{
+			role: 'system',
+			content: SYSTEM_SEED_MESSAGE,
+		},
+		{
+			role: 'user',
+			content: Mock_User_Message,
+		},
+		{
+			role: 'system',
+			content: Mock_AI_Response,
+		},
+		{
+			role: 'user',
+			content: user_message,
+		},
+	];
 
-  // Request the OpenAI API for the response based on the prompt
-  const response = await openai.chat.completions.create({
-    model: 'gpt-4-1106-preview',
-    messages: all_messages as [],
-    max_tokens: 500,
-    temperature: 0.7,
-    top_p: 1,
-    response_format: {
-      type: "json_object",
-    },
-  })
+	// Request the OpenAI API for the response based on the prompt
+	const response = await openai.chat.completions.create({
+		// model: 'gpt-4-1106-preview',
+		model: 'gpt-3.5-turbo',
+		messages: all_messages as [],
+		max_tokens: 500,
+		temperature: 0.7,
+		top_p: 1,
+		response_format: {
+			type: 'json_object',
+		},
+	});
 
-  const json_res = response.choices[0].message.content
-     
-  if (json_res === undefined || json_res === null) {
-    throw new Error('No response from OpenAI')
-  }
+	const json_res = response.choices[0].message.content;
 
-  console.log("json_res", json_res)
-  
-  // # 2. Parse the response
-  const obj_out = JSON.parse(json_res);
+	if (json_res === undefined || json_res === null) {
+		throw new Error('No response from OpenAI');
+	}
 
-  // Check if object type is AllRequiredCertificatesProps or RequestMoreInfo and return the appropriate Asserted Type
+	console.log('json_res', json_res);
 
-  if (obj_out.hasOwnProperty('certifications')) {
-    return obj_out as AllRequiredCertificatesProps
-  } else if (obj_out.hasOwnProperty('request_more_info')) {
-    return obj_out as RequestMoreInfo
-  } else {
-    throw new Error('Invalid response from OpenAI')
-  }
+	// # 2. Parse the response
+	const obj_out = JSON.parse(json_res);
 
+	// Check if object type is AllRequiredCertificatesProps or RequestMoreInfo and return the appropriate Asserted Type
+
+	if (obj_out.hasOwnProperty('certifications')) {
+		return obj_out as AllRequiredCertificatesProps;
+	} else if (obj_out.hasOwnProperty('request_more_info')) {
+		return obj_out as RequestMoreInfo;
+	} else {
+		throw new Error('Invalid response from OpenAI');
+	}
 }
-

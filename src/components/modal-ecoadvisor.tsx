@@ -83,7 +83,7 @@ export function ModalEcoAdvisor() {
 					{(onClose) => (
 						<>
 							<ModalHeader className='flex flex-col gap-1 bg-stone-200 text-esl-fg rounded-t-xl'>
-								Eco Assistant
+								Eco Advisor
 							</ModalHeader>
 							<ModalBody className=''>
 								<div className='flex flex-col w-full max-w-md mx-auto stretch min-h-unit-7xl relative'>
