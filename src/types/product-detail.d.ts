@@ -13,6 +13,6 @@ type ProductDetails = {
   type VerifyProductCertificationProps = {
     product_title: string
     company_name: string
-    certifications: string[]
+    certifications: Any[]
     manufacturing_materials: string[] | undefined
 }

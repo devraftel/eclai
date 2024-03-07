@@ -2,7 +2,7 @@
 
 export async function verifyProductCertifications({certifications, company_name, manufacturing_materials, product_title}: VerifyProductCertificationProps) {
     
-    const INPUT = `Product: ${product_title}\nCompany: ${company_name}\nCertifications: ${certifications}\nMaterials: ${manufacturing_materials}`
+    const INPUT = `Product: ${product_title}\nCompany: ${company_name}\nCertifications: ${JSON.stringify(certifications)}\nMaterials: ${JSON.stringify(manufacturing_materials)}`
 
     // log type of input
     console.log(typeof INPUT)
