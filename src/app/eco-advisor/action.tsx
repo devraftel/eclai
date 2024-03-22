@@ -36,6 +36,8 @@ async function submitUserMessage(content: string) {
 	// Rate limit the user
 	const ip = headers().get('x-real-ip') ?? 'local';
 	const rl = await messageRateLimit.limit(ip);
+	console.log("---- IP ---", ip, "\n---- RL ----", rl.limit, rl.remaining);
+	
 
 	if (!rl.success) {
 		reply.done(
