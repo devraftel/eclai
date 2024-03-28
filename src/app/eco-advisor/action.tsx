@@ -17,7 +17,7 @@ import {
 	fetchProductDetailsFromUrl,
 	verifyProductCertifications,
 } from '@/lib/ai-engine';
-import { messageRateLimit } from '@/lib/rate-limit';
+// import { messageRateLimit } from '@/lib/rate-limit';
 import { runOpenAICompletion, sleep } from '@/lib/utils';
 import { headers } from 'next/headers';
 import { z } from 'zod';
@@ -34,20 +34,20 @@ async function submitUserMessage(content: string) {
 	);
 
 	// Rate limit the user
-	const ip = headers().get('x-real-ip') ?? 'local';
-	const rl = await messageRateLimit.limit(ip);
-	console.log("---- IP ---", ip, "\n---- RL ----", rl.limit, rl.remaining);
+	// const ip = headers().get('x-real-ip') ?? 'local';
+	// const rl = await messageRateLimit.limit(ip);
+	// console.log("---- IP ---", ip, "\n---- RL ----", rl.limit, rl.remaining);
 	
 
-	if (!rl.success) {
-		reply.done(
-			<BotMessage>Rate limit exceeded. Try again in 15 minutes.</BotMessage>
-		);
-		return {
-			id: Date.now(),
-			display: reply.value,
-		};
-	}
+	// if (!rl.success) {
+	// 	reply.done(
+	// 		<BotMessage>Rate limit exceeded. Try again in 15 minutes.</BotMessage>
+	// 	);
+	// 	return {
+	// 		id: Date.now(),
+	// 		display: reply.value,
+	// 	};
+	// }
 
 	// Add the user message to the AI state
 	const aiState = getMutableAIState<typeof AI>();
